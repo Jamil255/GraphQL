@@ -2,18 +2,26 @@
 import dotenv from 'dotenv'
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-
+import { schema } from './graphql/schema.js';
+import connectDb from './database/db.js';
 
   dotenv.config({path: './.env',});
-
   export const envMode = process.env.NODE_ENV?.trim() || 'DEVELOPMENT';
   const port =Number( process.env.PORT) || 3000;
-
+const MongUri = process.env.MONGO_URI || ""
+if (!MongUri) {
+    throw new  Error(" MongUri is  undefinded")
+}
+connectDb(MongUri)
 const server = new ApolloServer({
-    typeDefs: `type Query{hello :String}`,
+    typeDefs: schema,
     resolvers: {
         Query: {
-            hello:()=>"hello world"
+            hello: () => "hello world",
+            wow: () => "just like a wow",
+            users: () => {
+                return ["jamil afzal"]
+            }
         }
     },
 })
@@ -23,7 +31,7 @@ startStandaloneServer(server, {
         port,
     }
 }).then(() => { 
-console.log("server is started on port " + port+ "in"+envMode)
+console.log("server is  on port " + port+ "in"+envMode)
 
 })
     .catch((error) => { })
@@ -53,4 +61,4 @@ console.log("server is started on port " + port+ "in"+envMode)
 //   app.use(errorMiddleware);
   
   
-//   app.listen(port, () => console.log('Server is working on Port:'+port+' in '+envMode+' Mode.'));
+//   app.listen(port, () => console.log('Server is working on Port:'+port+' in '+envMode+' Mode.'));started
