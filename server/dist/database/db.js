@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 const connectDb = async (uri) => {
     try {
-        const db = await mongoose.connect(uri);
+        const db = await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 5000,
+        });
         console.log(`Connecting to ${db.connection.host}`);
     }
     catch (error) {
