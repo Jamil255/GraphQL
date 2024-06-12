@@ -24,6 +24,8 @@ export const todoName = async (todo) => {
     const userData = await axios.get(
       `https://jsonplaceholder.typicode.com/users/${todo.id}`
     )
+    const data = userData
+    return (data = userData)
   } catch (error) {
     console.log(error.message)
   }
