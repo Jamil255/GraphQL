@@ -1,17 +1,18 @@
 import { ApolloServer } from '@apollo/server'
 import { schema } from './graphql/schema.js'
 import { startStandaloneServer } from '@apollo/server/standalone'
-import axios from 'axios'
-import { getAllTodo, getAllTodoUsers } from './controllers/todo.js'
+import { getAllTodo, getAllTodoUsers, todoName } from './controllers/todo.js'
 
 const port = process.env.PORT || 3000
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers: {
-   
+    Todo: {
+      users: todoName,
+    },
     Query: {
-      todos:getAllTodo,
-      users: getAllTodoUsers
+      todos: getAllTodo,
+      users: getAllTodoUsers,
     },
   },
 })
@@ -22,7 +23,7 @@ startStandaloneServer(server, {
   },
 })
   .then(() => {
-    console.log('server is  on port ' + port + 'in')
+    console.log('server is  on port ' + port)
   })
   .catch((error) => {
     console.log(error)
