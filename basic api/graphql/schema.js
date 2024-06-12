@@ -1,14 +1,21 @@
-export const schema = `
-
-type User{
-_id:ID!
-userID:String!
-value:String!
-
+export const schema = `#graphql
+type Todo{
+    id:ID!
+    userId:ID!
+    title:String!
+    completed:Boolean !
+    users:User
+}
+type User {
+    name:String!
+    username:String!
+    email:String!
+    phone:String!
 }
 
 type Query{
-user:[User]
+todos:[Todo]
+users:[User]
 }
 
 `
