@@ -9,6 +9,7 @@ const server = new ApolloServer({
   resolvers: {
     Query: {
       user: () => 'localhost',
+      hello:()=>"hello world"
     },
   },
 })
