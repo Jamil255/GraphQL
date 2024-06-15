@@ -16,9 +16,18 @@ type Img{
     url:String!
 
 }
+type SampleUser{
+    fullName:String!
+    email:String!
+    password:String!
+}
 type Query {
     users:[User]
     todos:[Todo]
     img(id:ID!):Img
+}
+type Mutation{
+    newUser(fullName:String!,email:String!,password:String!):String
+    login(email:String!,password:String):String
 }
 `;
